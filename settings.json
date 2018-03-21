@@ -1,0 +1,53 @@
+[
+  {
+    "info_msg": "[定期]\nお昼です！みなさんこんにちはっ！\nここはN高関係者限定のサーバーなので、N高関係者以外は誘わないようにお願いしますなのっ＞＜\nそれでは！ 引き続きゲームライフを楽しんでね！",
+
+    "join_msg": "ようこそ <username> さん！\nここはN高生限定のサーバーなのです！\nN高関係者以外は誘わないようにね＞＜\n「!help」で各chの説明をするよ～",
+
+    "help_msg": "【チャンネル】\n\n#要望&質問 - *運営への要望や質問*\n#クラン募集&勧誘 - *クランメンバー募集*\n#雑談 - *Let's 雑談!*\n#募集 - *パーティーメンバーの募集*\n#id交換 - *ゲームのIDの交換*\n#生放送url - *生放送リンク*\n\n【コマンド】\n\n!help - *ヘルプ*\n!now - *現在時刻*\n!info - *定期的に流すインフォメーション*\n!dev - *開発者*\n!r6s <プレイヤー名> - *対象R6Sプレイヤーの戦績*",
+
+    "ban_word_log_msg": "ユーザーネーム: <name>\nユーザーID: <id>\n内容: <content>\nチャンネル: #<channel>\n時刻: <date>",
+
+    "ctrl_msg": "You have a control.\nSyncing #<channel_name>...",
+
+    "ctrl_stop_msg": "I have a control.",
+    
+    "start_msg": "お仕事頑張ります！",
+    
+    "stop_msg": "またね～",
+    
+    "restart_msg": "再起動中です...＞＜",
+    
+    "error_msg": "もうだめですぅ...(◎＿◎;)",
+    
+    "dev_msg": "@uehara さんに開発されましたっ！",
+    
+    "tere_msg": "＞＜",
+    
+    "r6s_battle_record_msg": "勝利: <wins>\n敗北: <losses>\n勝率: <wlr>\nキル: <kills>\nデス: <deaths>\nKD: <kd>\nプレイ時間: <playtime>時間",
+    
+    "r6s_player_msg": "レベル: <level>\n経験値: <xp>\nヘッドショット: <headshots>\nアシスト: <assists>",
+    
+    "r6s_notfound_msg": "プレイヤーが見つかりません。",
+    
+    "invalid_format": "不正なコマンド形式です。",
+    
+    "not_input_channel_id": "チャンネルIDが分かんない...＞＜",
+    
+    "not_found_channel_id": "チャンネルが見つからない...＞＜",
+    
+    "ban_words": ["死ね","クソ","くそ","糞","キモい","きもい","キチガイ","きちがい","殺","ころす"],
+    
+    "info_hour": 12,
+    
+    "info_minute":0,
+    
+    "error_log_file": "error.log",
+
+    "token": "NDE4MjQ5MTY2NzY3MTI4NTg3.DZJ8TA.ZhxRN9V2x7knXxpNWxIErfyuyUc",
+
+    "ban_manage_channel_name": "ban-manage",
+
+    "welcome_msg_channel_name": "雑談"
+  }
+]
