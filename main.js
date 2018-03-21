@@ -42,7 +42,9 @@ client.on("message", msg => {
       });
       let r6s_player_find = msg.content.match(/^!r6s (.+)/)
       if (r6s_player_find) {
+        msg.channel.send(`読み込み中です...＞＜`)
         const name = r6s_player_find[1]
+
         request.get(url.replace("<name>", name), (error, response, body) => {
           if (error) {
             msg.channel.send("GET request error");
@@ -73,9 +75,6 @@ client.on("message", msg => {
           msg.channel.send({embed: {
               color: 8421504,
               title: `- ${name} -`,
-              image: {
-                url: "https://www.iwantcheats.net/wp-content/uploads/2015/12/tom-clany-rainbow-six-siege-logo-png.png",
-              },
               fields: [{
                   name: "\u200B",
                   value: player_data
@@ -91,9 +90,6 @@ client.on("message", msg => {
                 },{
                   name: "【ランク】",
                   value: rank_data
-                },{
-                  name: "\u200B",
-                  value: "\u200B"
                 }
               ],
             }
