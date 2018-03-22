@@ -33,10 +33,6 @@ client.on("message", msg => {
     case "!dev":
       msg.channel.send(settings.dev_msg)
       break;
-    case "!hoge":
-      console.log()
-
-      break;
     default:
       settings.ban_words.forEach(ban_word => {
         if(msg.content.match(ban_word) && !msg.author.bot){
@@ -46,6 +42,7 @@ client.on("message", msg => {
         }
       });
       let r6s_player_find = msg.content.match(/^!r6s (.+)/)
+      let roulette = msg.content.match(/^!roulette (.+)/)
       if (r6s_player_find) {
         msg.channel.send(`読み込み中です...＞＜`)
         const name = r6s_player_find[1]
@@ -100,6 +97,9 @@ client.on("message", msg => {
             }
           });
         })
+      }else if(roulette){
+        const values = msg.content.replace("!roulette ","").split(" ")
+        msg.channel.send(values[Math.floor(Math.random() * values.length)])
       }
   }
 })
