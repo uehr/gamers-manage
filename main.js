@@ -6,6 +6,11 @@ const settings = require("./settings.json")[0]
 const moment = require("moment")
 const dateFormat = "YYYY-MM-DD hh:mm:ss"
 const cron = require("node-cron")
+const MeCab = new require("mecab-lite")
+let mecab = new MeCab()
+
+mecab.ENCODING = "UTF-8"
+
 
 cron.schedule(`0 0 ${settings.info_hour} * * * *`, () => {
   client.channels.find("name", settings.info_msg_channel_name).send(settings.info_msg)
@@ -41,10 +46,13 @@ client.on("message", msg => {
           return
         }
       });
+
       let r6s_player_find = msg.content.match(/^!r6s (.+)/)
       let roulette = msg.content.match(/^!roulette (.+)/)
+      let talk = msg.content.match(/^manager (.+)/)
+
       if (r6s_player_find) {
-        msg.channel.send(`読み込み中です...＞＜`)
+        msg.channel.send(`Loading...`)
         const name = r6s_player_find[1]
 
         request.get(url.replace("<name>", name), (error, response, body) => {
@@ -100,6 +108,29 @@ client.on("message", msg => {
       }else if(roulette){
         const values = msg.content.replace("!roulette ","").split(" ")
         msg.channel.send(values[Math.floor(Math.random() * values.length)])
+      }else if(talk){
+        mecab.parse(msg.content.replace("manager ",""), (err, res) => {
+          if(err){
+            console.log(err)
+          }else{
+            res.some(parsed_ele => {
+              const content = parsed_ele[0]
+              let response = "へぇ～"
+              if(parsed_ele.includes("感動詞")){
+                response = content + "～"
+              }else if(parsed_ele.includes("代名詞")){
+                return false
+              }else if(parsed_ele.includes("名詞")){
+                }if(parsed_ele.includes("人名")){
+                  response = content + "さん" + settings.name_reactions[Math.floor(Math.random() * settings.name_reactions.length)] + "よね"
+                }else{
+                  response = content + "って" + settings.noun_reactions[Math.floor(Math.random() * settings.noun_reactions.length)] + "よね～"
+                }
+              msg.channel.send(response)
+              return true
+            })
+          }
+        })
       }
   }
 })
