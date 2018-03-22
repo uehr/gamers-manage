@@ -40,14 +40,14 @@
     
     "info_hour": 12,
     
-    "info_minute":0,
-    
     "error_log_file": "error.log",
 
     "token": "NDE4MjQ5MTY2NzY3MTI4NTg3.DZJ8TA.ZhxRN9V2x7knXxpNWxIErfyuyUc",
 
     "ban_manage_channel_name": "ban-manage",
 
-    "welcome_msg_channel_name": "雑談"
+    "welcome_msg_channel_name": "雑談",
+
+    "info_msg_channel_name" : "info"
   }
 ]

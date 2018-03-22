@@ -5,6 +5,11 @@ const client = new discord.Client()
 const settings = require("./settings.json")[0]
 const moment = require("moment")
 const dateFormat = "YYYY-MM-DD hh:mm:ss"
+const cron = require("node-cron")
+
+cron.schedule(`0 0 ${settings.info_hour} * * * *`, () => {
+  client.channels.find("name", settings.info_msg_channel_name).send(settings.info_msg)
+})
 
 client.on("ready", () => {
   console.log("started: " + moment().format(dateFormat))
