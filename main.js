@@ -108,29 +108,6 @@ client.on("message", msg => {
       }else if(roulette){
         const values = msg.content.replace("!roulette ","").split(" ")
         msg.channel.send(values[Math.floor(Math.random() * values.length)])
-      }else if(talk){
-        mecab.parse(msg.content.replace("manager ",""), (err, res) => {
-          if(err){
-            console.log(err)
-          }else{
-            res.some(parsed_ele => {
-              const content = parsed_ele[0]
-              let response = "へぇ～"
-              if(parsed_ele.includes("感動詞")){
-                response = content + "～"
-              }else if(parsed_ele.includes("代名詞")){
-                return false
-              }else if(parsed_ele.includes("名詞")){
-                }if(parsed_ele.includes("人名")){
-                  response = content + "さん" + settings.name_reactions[Math.floor(Math.random() * settings.name_reactions.length)] + "よね"
-                }else{
-                  response = content + "って" + settings.noun_reactions[Math.floor(Math.random() * settings.noun_reactions.length)] + "よね～"
-                }
-              msg.channel.send(response)
-              return true
-            })
-          }
-        })
       }
   }
 })
