@@ -38,7 +38,24 @@ client.on("message", msg => {
     case "!dev":
       msg.channel.send(settings.dev_msg)
       break;
+    case "!active":
+      let message = "- *Active VC* -\n"
+      client.channels.forEach(channel => {
+        if(channel.type === "voice"){
+          let joined_user_count = 0;
+          channel.members.forEach(details => {
+            joined_user_count++;
+          })
+
+          if(joined_user_count){
+            message += `[${channel.name}] - ${joined_user_count}人\n`
+          }
+        }
+      })
+      msg.channel.send(message)
+      break;
     default:
+      //take argment commands
       settings.ban_words.forEach(ban_word => {
         if(msg.content.match(ban_word) && !msg.author.bot){
           const log = settings.ban_word_log_msg.replace("<name>", msg.author.username).replace("<id>", msg.author.id).replace("<content>", msg.content).replace("<channel>", msg.channel.name).replace("<date>", moment().format(dateFormat))
@@ -47,8 +64,8 @@ client.on("message", msg => {
         }
       });
 
-      let r6s_player_find = msg.content.match(/^!r6s (.+)/)
-      let roulette = msg.content.match(/^!roulette (.+)/)
+      const r6s_player_find = msg.content.match(/^!r6s (.+)/)
+      const roulette = msg.content.match(/^!roulette (.+)/)
 
       if (r6s_player_find) {
         msg.channel.send(settings.loading_msg).then(loading_msg => {
