@@ -21,7 +21,8 @@ client.on("ready", () => {
 });
 
 client.on("guildMemberAdd", member => {
-  client.channels.find("name", settings.welcome_msg_channel_name).send(settings.join_msg)
+  const name = member.user.username
+  client.channels.find("name", settings.welcome_msg_channel_name).send(settings.join_msg.replace("<name>", name))
 });
 
 client.on("message", msg => {
