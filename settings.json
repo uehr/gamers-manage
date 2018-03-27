@@ -24,9 +24,13 @@
     
     "tere_msg": "＞＜",
     
-    "r6s_battle_record_msg": "勝利: <wins>\n敗北: <losses>\n勝率: <wlr>\nキル: <kills>\nデス: <deaths>\nKD: <kd>\nプレイ時間: <playtime>時間",
+    "r6s_battle_record_msg": "勝率: <wlr>\nKD: <kd>\nプレイ時間: <playtime>時間",
     
     "r6s_player_msg": "レベル: <level>\n経験値: <xp>\nヘッドショット: <headshots>\nアシスト: <assists>",
+
+    "r6s_operator_msg" : "勝率: <wlr>\nKD: <kd>\nピック回数: <played>\nプレイ時間: <playtime>時間",
+
+    "views_count": 3,
     
     "r6s_notfound_msg": "プレイヤーが見つかりません。",
     
