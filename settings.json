@@ -38,16 +38,12 @@
 
     "ban_manage_channel_name": "ban-manage",
 
-    "twitter_targets": [{"user_name": "R6Snews", "post_channel_name": "r6s-news"}, {"user_name": "uehr_tech", "post_channel_name": "r6s-news"}],
+    "twitter_targets": [{"user_name": "R6Snews", "post_channel_name": "r6s-news"}, {"user_name": "hoge37", "post_channel_name": "r6s-news"}],
 
     "welcome_msg_channel_name": "雑談",
 
     "info_msg_channel_name" : "info",
 
-    "loading_msg": "Loading...",
-
-    "noun_reactions" : ["楽しい", "面白い", "好きなんだ", "ちょっと苦手なんだ", "微妙なんだ", "案外好きなんだ"],
-
-    "name_reactions" : ["って面白い", "が好きなんだ", "はちょっと苦手なんだ", "と会ってみたいんだ", "とお話してみたいんだ", "は嫌いなんだ", "は大好きなんだ", "ってかっこいい", "って可愛い"]
+    "loading_msg": "Loading..."
   }
 ]
