@@ -18,7 +18,6 @@ const moment = require("moment")
 const dateFormat = "YYYY-MM-DD hh:mm:ss"
 const cron = require("node-cron")
 const twitter = require("twitter")
-const sleep = require("sleep-promise")
 
 const tclient = new twitter({
   consumer_key: process.env.twitter_consumer_key,
