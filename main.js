@@ -31,7 +31,7 @@ console.log("twitter: ")
 settings.twitter_targets.forEach(option => {
   console.log(option)
   //連続でリクエストを投げると、twitterから怒られるので、間隔を開ける
-  sleep(1000, () => {
+  // sleep(1000, () => {
     tclient.get('statuses/user_timeline', {screen_name: option.user_name}, (error, tweets, response) => {
       if (!error) {
         const user_id = tweets[0].user.id_str
@@ -44,7 +44,7 @@ settings.twitter_targets.forEach(option => {
         })
       }
     })
-  })
+  // })
 })
 
 cron.schedule(`0 0 ${settings.info_hour} * * * *`, () => {
