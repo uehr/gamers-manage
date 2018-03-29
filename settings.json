@@ -8,12 +8,6 @@
 
     "ban_word_log_msg": "ユーザーネーム: <name>\nユーザーID: <id>\n内容: <content>\nチャンネル: #<channel>\n時刻: <date>",
 
-    "ctrl_msg": "You have a control.\nSyncing #<channel_name>...",
-
-    "ctrl_stop_msg": "I have a control.",
-    
-    "start_msg": "お仕事頑張ります！",
-    
     "stop_msg": "またね～",
     
     "restart_msg": "再起動中です...＞＜",
@@ -36,19 +30,15 @@
     
     "invalid_format": "不正なコマンド形式です。",
     
-    "not_input_channel_id": "チャンネルIDが分かんない...＞＜",
-    
-    "not_found_channel_id": "チャンネルが見つからない...＞＜",
-    
     "ban_words": ["死ね","クソ","くそ","糞","キモい","きもい","キチガイ","きちがい","殺","ころす"],
     
     "info_hour": 12,
     
     "error_log_file": "error.log",
 
-    "token": "NDE4MjQ5MTY2NzY3MTI4NTg3.DZJ8TA.ZhxRN9V2x7knXxpNWxIErfyuyUc",
-
     "ban_manage_channel_name": "ban-manage",
+
+    "twitter_targets": [{"user_name": "R6Snews", "post_channel_name": "r6s-news"}],
 
     "welcome_msg_channel_name": "雑談",
 

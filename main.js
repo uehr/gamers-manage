@@ -1,32 +1,61 @@
+/**
+ * [using envs list]
+ * twitter_consumer_key
+ * twitter_consumer_secret
+ * twitter_access_token_key
+ * twitter_access_token_secret
+ * discord_token
+*/
+
 const request = require("request")
 const player_api_url = "https://api.r6stats.com/api/v1/players/<name>?platform=uplay"
 const operator_api_url = "https://api.r6stats.com/api/v1/players/<name>/operators?platform=uplay"
 const discord = require("discord.js")
-const client = new discord.Client()
+const dclient = new discord.Client()
 const settings = require("./settings.json")[0]
 const moment = require("moment")
 const dateFormat = "YYYY-MM-DD hh:mm:ss"
 const cron = require("node-cron")
-const MeCab = new require("mecab-lite")
-let mecab = new MeCab()
+const twitter = require("twitter")
 
-mecab.ENCODING = "UTF-8"
+const tclient = new twitter({
+  consumer_key: process.env.twitter_consumer_key,
+  consumer_secret: process.env.twitter_consumer_secret,
+  access_token_key: process.env.twitter_access_token_key,
+  access_token_secret: process.env.twitter_access_token_secret
+});
 
-
-cron.schedule(`0 0 ${settings.info_hour} * * * *`, () => {
-  client.channels.find("name", settings.info_msg_channel_name).send(settings.info_msg)
+//対象ユーザーのIDを取得
+settings.twitter_targets.forEach(setting => {
+  console.log(setting)
+  tclient.get('statuses/user_timeline', {screen_name: setting.user_name}, function(error, tweets, response){
+  if (!error) {
+    const user_id = tweets[0].user.id_str;
+    //取得できたIDを用いてストリームを生成
+    tclient.stream('statuses/filter', {follow : user_id}, function(stream) {
+    stream.on('data', data => {
+      const tweet_url = `https://twitter.com/${setting.user_name}/status/${data.id_str}`
+      dclient.channels.find("name", setting.post_channel_name).send(tweet_url)
+    });
+  });
+  }
+});
 })
 
-client.on("ready", () => {
+cron.schedule(`0 0 ${settings.info_hour} * * * *`, () => {
+  dclient.channels.find("name", settings.info_msg_channel_name).send(settings.info_msg)
+})
+
+dclient.on("ready", () => {
   console.log("started: " + moment().format(dateFormat))
 });
 
-client.on("guildMemberAdd", member => {
+dclient.on("guildMemberAdd", member => {
   const name = member.user.username
-  client.channels.find("name", settings.welcome_msg_channel_name).send(settings.join_msg.replace("<name>", name))
+  dclient.channels.find("name", settings.welcome_msg_channel_name).send(settings.join_msg.replace("<name>", name))
 });
 
-client.on("message", msg => {
+dclient.on("message", msg => {
   switch (msg.content) {
     case "!help":
       msg.channel.send(settings.help_msg)
@@ -42,7 +71,7 @@ client.on("message", msg => {
       break;
     case "!active":
       let message = "- *Active VC* -\n"
-      client.channels.forEach(channel => {
+      dclient.channels.forEach(channel => {
         if(channel.type === "voice"){
           let joined_user_count = 0;
           channel.members.forEach(details => {
@@ -61,7 +90,7 @@ client.on("message", msg => {
       settings.ban_words.forEach(ban_word => {
         if(msg.content.match(ban_word) && !msg.author.bot){
           const log = settings.ban_word_log_msg.replace("<name>", msg.author.username).replace("<id>", msg.author.id).replace("<content>", msg.content).replace("<channel>", msg.channel.name).replace("<date>", moment().format(dateFormat))
-          client.channels.find("name", settings.ban_manage_channel_name).send(log);
+          dclient.channels.find("name", settings.ban_manage_channel_name).send(log);
           return
         }
       });
@@ -198,4 +227,4 @@ client.on("message", msg => {
   }
 })
 
-client.login(settings.token)
+dclient.login(process.env.discord_token)
