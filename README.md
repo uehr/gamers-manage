@@ -10,3 +10,4 @@
 
 ## その他機能
 - [@R6Snews](https://twitter.com/R6Snews)のツイートを #r6s-news へ流す
+- BAN対象ワードの記録
