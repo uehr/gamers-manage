@@ -38,7 +38,7 @@
 
     "ban_manage_channel_name": "ban-manage",
 
-    "twitter_targets": [{"user_name": "R6Snews", "post_channel_name": "r6s-news"}],
+    "twitter_targets": [{"user_name": "R6Snews", "post_channel_name": "r6s-news"}, {"user_name": "Rainbow6Game", "post_channel_name": "r6s-news"}],
 
     "welcome_msg_channel_name": "雑談",
 
