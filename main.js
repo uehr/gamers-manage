@@ -36,8 +36,10 @@ settings.twitter_targets.forEach(option => {
       //取得できたIDを用いてストリームを生成
       tclient.stream('statuses/filter', {follow : user_id}, stream => {
         stream.on('data', tweet => {
-          const tweet_url = `https://twitter.com/${option.user_name}/status/${tweet.id_str}`
-          dclient.channels.find("name", option.post_channel_name).send(tweet_url)
+          if(tweet.id_str === user_id){
+            const tweet_url = `https://twitter.com/${option.user_name}/status/${tweet.id_str}`
+            dclient.channels.find("name", option.post_channel_name).send(tweet_url)
+          }
         })
       })
     }
