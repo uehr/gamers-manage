@@ -18,6 +18,7 @@ const moment = require("moment")
 const dateFormat = "YYYY-MM-DD hh:mm:ss"
 const cron = require("node-cron")
 const twitter = require("twitter")
+const sleep = require("sleep-promise")
 
 const tclient = new twitter({
   consumer_key: process.env.twitter_consumer_key,
@@ -30,19 +31,22 @@ const tclient = new twitter({
 console.log("twitter: ")
 settings.twitter_targets.forEach(option => {
   console.log(option)
-  tclient.get('statuses/user_timeline', {screen_name: option.user_name}, (error, tweets, response) => {
-    if (!error) {
-      const user_id = tweets[0].user.id_str
-      //取得できたIDを用いてストリームを生成
-      tclient.stream('statuses/filter', {follow : user_id}, stream => {
-        stream.on('data', tweet => {
-          if(tweet.id_str === user_id){
-            const tweet_url = `https://twitter.com/${option.user_name}/status/${tweet.id_str}`
-            dclient.channels.find("name", option.post_channel_name).send(tweet_url)
-          }
+  sleep(5000).then(resolve => {
+    tclient.get('statuses/user_timeline', {screen_name: option.user_name}, (error, tweets, response) => {
+      if (!error) {
+        const user_id = tweets[0].user.id_str
+        //取得できたIDを用いてストリームを生成
+        tclient.stream('statuses/filter', {follow : user_id}, stream => {
+          stream.on('data', tweet => {
+            if(tweet.user.id_str === user_id){
+              if(tweet.user.screen_name === "hoge37" && tweet.text != "sync test") return
+              const tweet_url = `https://twitter.com/${option.user_name}/status/${tweet.id_str}`
+              dclient.channels.find("name", option.post_channel_name).send(tweet_url)
+            }
+          })
         })
-      })
-    }
+      }
+    })
   })
 })
 
