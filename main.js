@@ -38,7 +38,7 @@ settings.twitter_targets.forEach(option => {
         //取得できたIDを用いてストリームを生成
         tclient.stream('statuses/filter', {follow : user_id}, stream => {
           stream.on('data', tweet => {
-            if(tweet.user.id_str === user_id){
+            if((tweet.user.id_str === user_id) && !tweet.in_reply_to_user_id){
               if(tweet.user.screen_name === "hoge37" && tweet.text != "sync test") return
               const tweet_url = `https://twitter.com/${option.user_name}/status/${tweet.id_str}`
               dclient.channels.find("name", option.post_channel_name).send(tweet_url)
@@ -81,7 +81,7 @@ dclient.on("message", msg => {
       let message = "- *Active VC* -\n"
       dclient.channels.forEach(channel => {
         if(channel.type === "voice"){
-          let joined_user_count = 0;
+          let joined_user_count = 0
           channel.members.forEach(details => {
             joined_user_count++;
           })
