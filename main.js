@@ -148,6 +148,10 @@ dclient.on("message", msg => {
             now_vc.leave()
             now_vc = null
           })
+        }).catch(error => {
+          console.log(error)
+          now_vc.leave()
+          now_vc = null
         })
       }else if(r6s_operator_data_find){
          msg.channel.send(settings.loading_msg).then(loading_msg => {
