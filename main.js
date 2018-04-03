@@ -1,4 +1,3 @@
-
 /**
  * [using envs list]
  * twitter_consumer_key
@@ -21,14 +20,15 @@ const twitter = require("twitter")
 const sleep = require("sleep-promise")
 const fs = require("fs")
 const bgm_path = "./bgm/<number>.mp3"
+const ystream = require('youtube-audio-stream')
 const tclient = new twitter({
   consumer_key: process.env.twitter_consumer_key,
   consumer_secret: process.env.twitter_consumer_secret,
   access_token_key: process.env.twitter_access_token_key,
   access_token_secret: process.env.twitter_access_token_secret
 });
-let bgm_ended = true
-let bgm_playing_channel_name
+let now_vc = null
+let singing = false
 
 //対象ユーザーのIDを取得
 console.log("twitter: ")
@@ -110,6 +110,12 @@ dclient.on("message", msg => {
       })
       msg.channel.send(message)
       break;
+    case "!youtube quit":
+      if(now_vc){
+        now_vc.leave()
+        now_vc = null
+      }
+      break
     default:
       //take argment commands
       settings.ban_words.forEach(ban_word => {
@@ -123,22 +129,26 @@ dclient.on("message", msg => {
       const r6s_player_data_find = msg.content.match(/^!r6s (.+)$/)
       const r6s_operator_data_find = msg.content.match(/^!r6s op (.+)$/)
       const roulette = msg.content.match(/^!roulette (.+)$/)
-      const start_bgm = msg.content.match(/^!bgm start (.+)$/)
-      const end_bgm = msg.content.match(/^!bgm end$/)
-      if(start_bgm) {
-        if(!bgm_ended){
-          msg.channel.send(`既に #${bgm_playing_channel_name} で流してるよ~`)
-        }else{
-          bgm_playing_channel_name = start_bgm[1]
-          bgm_ended = false
-          dclient.channels.find("name", bgm_playing_channel_name).join().then(connection => {
-            play_bgm(4, connection)
-          }).catch(console.log)
+      const start_youtube = msg.content.match(/^!youtube (.+) (.+)$/)
+      const join_vc = msg.content.match(/^!joinvc (.+)$/)
+
+      if(start_youtube){
+        if(now_vc){
+          msg.channel.send("他のVCで働いています＞＜\n少々お待ち下さいっ！")
+          return
         }
-      }else if(end_bgm) {
-        const channel_name = end_bgm[1]
-        dclient.channels.find("name", bgm_playing_channel_name).leave()
-        bgm_ended = true
+        const join_vc_name = start_youtube[1]
+        const url = start_youtube[2]
+        now_vc = dclient.channels.find("name", join_vc_name)
+        now_vc.join().then(connection => {
+          singing = true
+          const music = connection.playStream(ystream(url))
+          music.setVolume(0.5)
+          music.on("end", () => {
+            now_vc.leave()
+            now_vc = null
+          })
+        })
       }else if(r6s_operator_data_find){
          msg.channel.send(settings.loading_msg).then(loading_msg => {
           const name = r6s_operator_data_find[1]
