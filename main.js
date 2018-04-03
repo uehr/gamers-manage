@@ -19,13 +19,16 @@ const dateFormat = "YYYY-MM-DD hh:mm:ss"
 const cron = require("node-cron")
 const twitter = require("twitter")
 const sleep = require("sleep-promise")
-
+const fs = require("fs")
+const bgm_path = "./bgm/<number>.mp3"
 const tclient = new twitter({
   consumer_key: process.env.twitter_consumer_key,
   consumer_secret: process.env.twitter_consumer_secret,
   access_token_key: process.env.twitter_access_token_key,
   access_token_secret: process.env.twitter_access_token_secret
 });
+let bgm_ended = true
+let bgm_playing_channel_name
 
 //対象ユーザーのIDを取得
 console.log("twitter: ")
@@ -62,6 +65,20 @@ dclient.on("guildMemberAdd", member => {
   const name = member.user.username
   dclient.channels.find("name", settings.welcome_msg_channel_name).send(settings.join_msg.replace("<name>", name))
 });
+
+function play_bgm(bgm_num, connection) {
+  if(!bgm_ended){
+    const play_bgm_path = bgm_path.replace("<number>", bgm_num)
+    const bgm = connection.playFile(play_bgm_path)
+    bgm.setVolume(0.1)
+    bgm.on("end", () => {
+      let next_bgm_num = bgm_num + 1
+      const next_bgm_path = bgm_path.replace("<number>", next_bgm_num)
+      if(!fs.existsSync(next_bgm_path)) next_bgm_num = 1
+      play_bgm(next_bgm_num, connection)
+    })
+  }
+}
 
 dclient.on("message", msg => {
   switch (msg.content) {
@@ -106,8 +123,23 @@ dclient.on("message", msg => {
       const r6s_player_data_find = msg.content.match(/^!r6s (.+)$/)
       const r6s_operator_data_find = msg.content.match(/^!r6s op (.+)$/)
       const roulette = msg.content.match(/^!roulette (.+)$/)
-
-      if(r6s_operator_data_find){
+      const start_bgm = msg.content.match(/^!bgm start (.+)$/)
+      const end_bgm = msg.content.match(/^!bgm end$/)
+      if(start_bgm) {
+        if(!bgm_ended){
+          msg.channel.send(`既に #${bgm_playing_channel_name} で流してるよ~`)
+        }else{
+          bgm_playing_channel_name = start_bgm[1]
+          bgm_ended = false
+          dclient.channels.find("name", bgm_playing_channel_name).join().then(connection => {
+            play_bgm(4, connection)
+          }).catch(console.log)
+        }
+      }else if(end_bgm) {
+        const channel_name = end_bgm[1]
+        dclient.channels.find("name", bgm_playing_channel_name).leave()
+        bgm_ended = true
+      }else if(r6s_operator_data_find){
          msg.channel.send(settings.loading_msg).then(loading_msg => {
           const name = r6s_operator_data_find[1]
           request.get(operator_api_url.replace("<name>", name), (error, response, body) => {
