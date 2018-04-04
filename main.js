@@ -21,6 +21,8 @@ const sleep = require("sleep-promise")
 const fs = require("fs")
 const bgm_path = "./bgm/<number>.mp3"
 const ystream = require('youtube-audio-stream')
+const volume = require("pcm-volume")
+const v = new volume()
 const tclient = new twitter({
   consumer_key: process.env.twitter_consumer_key,
   consumer_secret: process.env.twitter_consumer_secret,
@@ -65,20 +67,6 @@ dclient.on("guildMemberAdd", member => {
   const name = member.user.username
   dclient.channels.find("name", settings.welcome_msg_channel_name).send(settings.join_msg.replace("<name>", name))
 });
-
-function play_bgm(bgm_num, connection) {
-  if(!bgm_ended){
-    const play_bgm_path = bgm_path.replace("<number>", bgm_num)
-    const bgm = connection.playFile(play_bgm_path)
-    bgm.setVolume(0.1)
-    bgm.on("end", () => {
-      let next_bgm_num = bgm_num + 1
-      const next_bgm_path = bgm_path.replace("<number>", next_bgm_num)
-      if(!fs.existsSync(next_bgm_path)) next_bgm_num = 1
-      play_bgm(next_bgm_num, connection)
-    })
-  }
-}
 
 dclient.on("message", msg => {
   switch (msg.content) {
@@ -143,7 +131,7 @@ dclient.on("message", msg => {
         now_vc.join().then(connection => {
           singing = true
           const music = connection.playStream(ystream(url))
-          music.setVolume(0.5)
+          music.setVolume(0.1)
           music.on("end", () => {
             now_vc.leave()
             now_vc = null
