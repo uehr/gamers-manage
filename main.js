@@ -21,7 +21,6 @@ const sleep = require("sleep-promise")
 const fs = require("fs")
 const bgm_path = "./bgm/<number>.mp3"
 const ystream = require('youtube-audio-stream')
-const volume = require("pcm-volume")
 const v = new volume()
 const tclient = new twitter({
   consumer_key: process.env.twitter_consumer_key,
