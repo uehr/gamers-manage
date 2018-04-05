@@ -90,9 +90,6 @@ dclient.on("message", msg => {
     case "!info":
       msg.channel.send(settings.info_msg)
       break;
-    case "!dev":
-      msg.channel.send(settings.dev_msg)
-      break;
     case "!active":
       let message = "- *Active VC* -\n"
       dclient.channels.forEach(channel => {

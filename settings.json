@@ -14,7 +14,6 @@
     "commands_help": [{"name": "!help", "value": "ヘルプ"},
                       {"name": "!now", "value": "現在時刻"},
                       {"name": "!info", "value": "定期的に流すインフォメーション"},
-                      {"name": "!dev", "value": "開発者"},
                       {"name": "!roulette <要素(可変長)>", "value": "要素の中からランダムに出力"},
                       {"name": "!active", "value": "現在アクティブなVCを確認"},
                       {"name": "!r6s <プレイヤー名>", "value": "対象R6Sプレイヤーの戦績"},
