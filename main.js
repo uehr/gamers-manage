@@ -67,7 +67,22 @@ dclient.on("guildMemberAdd", member => {
 dclient.on("message", msg => {
   switch (msg.content) {
     case "!help":
-      msg.channel.send(settings.help_msg)
+      msg.channel.send({embed: {
+          color: 8421504,
+          title: settings.server_help,
+      }}).then(sended_msg => {
+        return msg.channel.send({embed: {
+          color: 8421504,
+          title: "【チャンネル】",
+          fields: settings.channels_help,
+        }})
+      }).then(sended_msg => {
+        return msg.channel.send({embed: {
+          color: 8421504,
+          title: `【コマンド】`,
+          fields: settings.commands_help,
+        }})
+      })
       break;
     case "!now":
       msg.channel.send(moment().format(dateFormat))
