@@ -27,13 +27,12 @@ const tclient = new twitter({
   access_token_secret: process.env.twitter_access_token_secret
 });
 let now_vc = null
-let singing = false
 
 //対象ユーザーのIDを取得
 console.log("twitter: ")
-settings.twitter_targets.forEach(option => {
-  console.log(option)
-  sleep(5000).then(resolve => {
+settings.twitter_targets.forEach((option, index) => {
+  sleep(index * 5000).then(resolve => {
+    console.log(option)
     tclient.get('statuses/user_timeline', {screen_name: option.user_name}, (error, tweets, response) => {
       if (!error) {
         const user_id = tweets[0].user.id_str
