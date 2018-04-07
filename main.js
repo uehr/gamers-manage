@@ -25,7 +25,7 @@ const tclient = new twitter({
   consumer_secret: process.env.twitter_consumer_secret,
   access_token_key: process.env.twitter_access_token_key,
   access_token_secret: process.env.twitter_access_token_secret
-});
+})
 let now_vc = null
 
 //対象ユーザーのIDを取得
@@ -57,12 +57,12 @@ cron.schedule(`0 0 ${settings.info_hour} * * * *`, () => {
 
 dclient.on("ready", () => {
   console.log("started: " + moment().format(dateFormat))
-});
+})
 
 dclient.on("guildMemberAdd", member => {
   const name = member.user.username
   dclient.channels.find("name", settings.welcome_msg_channel_name).send(settings.join_msg.replace("<name>", name))
-});
+})
 
 dclient.on("message", msg => {
   switch (msg.content) {
@@ -120,7 +120,7 @@ dclient.on("message", msg => {
           dclient.channels.find("name", settings.ban_manage_channel_name).send(log);
           return
         }
-      });
+      })
 
       const r6s_player_data_find = msg.content.match(/^!r6s (.+)$/)
       const r6s_operator_data_find = msg.content.match(/^!r6s op (.+)$/)
@@ -136,6 +136,10 @@ dclient.on("message", msg => {
         const join_vc_name = start_youtube[1]
         const url = start_youtube[2]
         now_vc = dclient.channels.find("name", join_vc_name)
+        if(!now_vc){
+          msg.channel.send("VCが見つかりません＞＜")
+          return
+        }
         now_vc.join().then(connection => {
           singing = true
           const music = connection.playStream(ystream(url))
@@ -267,7 +271,7 @@ dclient.on("message", msg => {
               ]
             }}).then(sended_msg => {
               loading_msg.delete()
-            });
+            })
           })
         })
       }else if(roulette){
