@@ -19,6 +19,10 @@
                       {"name": "!r6s <プレイヤー名>", "value": "対象R6Sプレイヤーの戦績"},
                       {"name": "!r6s op <プレイヤー名>", "value": "対象R6Sプレイヤーのオペレーター情報"},
                       {"name": "!youtube <VC名> <URL>", "value": "指定されたYouTube上の動画をVCで再生"},
+                      {"name": "!vote list", "value": "現在登録されている投票項目一覧"},
+                      {"name": "!vote add <項目名> <解答フォーマット(可変長)>", "value": "投票項目を登録"},
+                      {"name": "!vote finish <項目名>", "value": "投票項目の投票受付終了"},
+                      {"name": "!vote <項目名> <解答>", "value": "対象項目へ投票"},
                       {"name": "!youtube quit", "value": "VC上での動画再生を終了"}],
 
     "server_help": "ここはN高生ゲーマーの交流場所です！\n在学生はもちろん、OBの方も是非ご参加下さい！",
@@ -61,6 +65,8 @@
 
     "info_msg_channel_name" : "info",
 
-    "loading_msg": "Loading..."
+    "loading_msg": "Loading...",
+
+    "admins_name": ["uehara", "くどう", "meshi", "KEITA_NOOB"]
   }
 ]
