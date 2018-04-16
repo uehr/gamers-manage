@@ -19,6 +19,7 @@ const cron = require("node-cron")
 const twitter = require("twitter")
 const sleep = require("sleep-promise")
 const bgm_path = "./bgm/<number>.mp3"
+const http = require("http")
 const tclient = new twitter({
   consumer_key: process.env.twitter_consumer_key,
   consumer_secret: process.env.twitter_consumer_secret,
@@ -26,6 +27,12 @@ const tclient = new twitter({
   access_token_secret: process.env.twitter_access_token_secret
 })
 let vote_asks = []
+
+//app running check for heroku
+http.createServer((req, res) => {
+  res.writeHead(200, {"Content-Type": "text:plain"})
+  res.send("Hello World\n")
+}).listen(process.env.PORT || 8080,"127.0.0.1")
 
 //対象ユーザーのIDを取得
 // console.log("twitter: ")
