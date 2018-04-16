@@ -31,7 +31,7 @@ let vote_asks = []
 //app running check for heroku
 http.createServer((req, res) => {
   res.writeHead(200, {"Content-Type": "text:plain"})
-  res.send("Hello World\n")
+  res.end("Hello World\n")
 }).listen(process.env.PORT || 8080)
 
 //対象ユーザーのIDを取得
