@@ -31,13 +31,13 @@ let vote_asks = []
 //app running check for heroku
 http.createServer((req, res) => {
   res.writeHead(200, {"Content-Type": "text:plain"})
-  res.end("Hello World\n")
+  res.end(process.env.app_status)
 }).listen(process.env.PORT || 8080)
 
 //対象ユーザーのIDを取得
 console.log("twitter: ")
 settings.twitter_targets.forEach((option, index) => {
-  sleep(index * 5000).then(resolve => {
+  sleep(index * 60000).then(resolve => {
     console.log(option)
     tclient.get('statuses/user_timeline', { screen_name: option.user_name }, (error, tweets, response) => {
       if (!error) {
