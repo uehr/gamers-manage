@@ -527,7 +527,12 @@ dclient.on("message", msg => {
             reminds.forEach((remind, index) => {
               if(remind.title === set_title) reminds.splice(index, 1)
             })
-            msg.channel.send(`[remind] ${set_title}`)
+            msg.channel.send({
+              embed: {
+                color: 0x48f442,
+                title: set_title
+              }
+            })
           })
         }else
           throw "invalid interval"
