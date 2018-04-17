@@ -2,7 +2,7 @@
   {
     "info_msg": "[定期]\nお昼です！みなさんこんにちはっ！\nここにはN高関係者以外は誘わないようにお願いなのっ＞＜\nそれでは！ 引き続きゲームライフを楽しんでね！",
 
-    "join_msg": "ようこそ <name> さん！ここはN高生ゲーマー専用のサーバーなのです！\nN高関係者以外は誘わないようにね＞＜ *!help* でここの案内をさせて頂きます！",
+    "join_msg": "ようこそ <name> さん！ここはN高生ゲーマー専用のサーバーなのです！N高関係者以外は誘わないようにね＞＜\n*help* でここの案内をさせて頂きます！",
 
     "channels_help": [{"name": "#要望&質問", "value": "運営への要望や質問"},
                       {"name": "#クラン募集&勧誘", "value": "クランメンバー募集"},
@@ -27,16 +27,6 @@
 
     "ban_word_log_msg": "ユーザーネーム: <name>\nユーザーID: <id>\n内容: <content>\nチャンネル: #<channel>\n時刻: <date>",
 
-    "stop_msg": "またね～",
-    
-    "restart_msg": "再起動中です...＞＜",
-    
-    "error_msg": "もうだめですぅ...(◎＿◎;)",
-    
-    "dev_msg": "@uehara さんに開発されましたっ！",
-    
-    "tere_msg": "＞＜",
-    
     "r6s_battle_record_msg": "勝率: <wlr>\nKD: <kd>\nプレイ時間: <playtime>時間",
     
     "r6s_player_msg": "レベル: <level>\n経験値: <xp>\nヘッドショット: <headshots>\nアシスト: <assists>",
@@ -53,8 +43,6 @@
     
     "info_hour": 12,
     
-    "error_log_file": "error.log",
-
     "ban_manage_channel_name": "ban-manage",
 
     "twitter_targets": [{"user_name": "R6Snews", "post_channel_name": "r6s-news"}, {"user_name": "PUBG_JAPAN", "post_channel_name": "pubg-news"}],
