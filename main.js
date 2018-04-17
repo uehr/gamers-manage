@@ -231,7 +231,7 @@ dclient.on("message", msg => {
       const add_vote_ask = msg.content.match(/^!vote add (.+)/)
       const vote = msg.content.match(/^!vote (.+) (.+)$/)
       const finish_vote = msg.content.match(/^!vote finish (.+)$/)
-      const remind = msg.content.match(/^!remind (\d{1,4}) (.+)/)
+      const remind = msg.content.match(/^!remind (.+) (\d{1,4})$/)
 
       if (r6s_operator_data_find) {
         msg.channel.send(settings.loading_msg).then(loading_msg => {
@@ -502,8 +502,8 @@ dclient.on("message", msg => {
           }
         })
       }else if(remind){
-      const set_interval = remind[1]
-      const set_title = remind[2]
+      const set_title = remind[1]
+      const set_interval = remind[2]
       const now = moment().format(dateFormat)
       isExistsRemind(set_title).then(isExists => {
         if(!isExists)
