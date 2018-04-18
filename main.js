@@ -37,7 +37,7 @@ http.createServer((req, res) => {
 //対象ユーザーのIDを取得
 console.log("twitter: ")
 settings.twitter_targets.forEach((option, index) => {
-  sleep(index * 60000).then(resolve => {
+  sleep((index + 1) * 60000).then(resolve => {
     console.log(option)
     tclient.get('statuses/user_timeline', { screen_name: option.user_name }, (error, tweets, response) => {
       if (!error) {
