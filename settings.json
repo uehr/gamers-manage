@@ -1,6 +1,6 @@
 [
   {
-    "info_msg": "[定期]\nお昼です！みなさんこんにちはっ！\nここにはN高関係者以外は誘わないようにお願いなのっ＞＜\nそれでは！ 引き続きゲームライフを楽しんでね！",
+    "info_msg": "[定期]\n9時です！みなさんこんにちはっ！\nここにはN高関係者以外は誘わないようにお願いなのっ＞＜\nそれでは！ 引き続きゲームライフを楽しんでね！",
 
     "join_msg": "ようこそ <name> さん！ここはN高生ゲーマー専用のサーバーなのです！N高関係者以外は誘わないようにね＞＜\n*help* でここの案内をさせて頂きます！",
 
@@ -42,7 +42,9 @@
     
     "ban_words": ["死ね","クソ","くそ","糞","キモい","きもい","キチガイ","きちがい","殺","ころす"],
     
-    "info_hour": 12,
+    "info_hour": 21,
+
+    "info_on_week" : "sat",
     
     "ban_manage_channel_name": "ban-manage",
 
@@ -54,6 +56,12 @@
 
     "loading_msg": "Loading...",
 
-    "admins_name": ["uehara", "くどう", "meshi", "KEITA_NOOB"]
+    "admins_name": ["uehara", "くどう", "meshi", "KEITA_NOOB"],
+
+    "player_api_url": "https://api.r6stats.com/api/v1/players/<name>?platform=uplay",
+
+    "operator_api_url": "https://api.r6stats.com/api/v1/players/<name>/operators?platform=uplay",
+
+    "date_format": "YYYY-MM-DD hh:mm:ss"
   }
 ]
