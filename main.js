@@ -108,7 +108,7 @@ dclient.on("message", msg => {
 
       const r6s_player_data_find_cmd = msg.content.match(/^!r6s (.+)$/)
       const r6s_operator_data_find_cmd = msg.content.match(/^!r6s op (.+)$/)
-      const roulette_cmd = msg.content.match(/^!roulette_cmd (.+)$/)
+      const roulette_cmd = msg.content.match(/^!roulette (.+)$/)
       const join_vc_cmd = msg.content.match(/^!joinvc (.+)$/)
       const add_vote_cmd = msg.content.match(/^!vote add (.+)/)
       const vote_cmd = msg.content.match(/^!vote (.+) (.+)$/)
