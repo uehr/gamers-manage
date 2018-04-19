@@ -72,7 +72,8 @@ dclient.on("ready", () => {
 
 dclient.on("guildMemberAdd", member => {
   const name = member.user.username
-  dclient.channels.find("name", settings.welcome_msg_channel_name).send(settings.join_msg.replace("<name>", name))
+  const user_status = settings.join_random_msg[Math.floor(Math.random() * settings.join_random_msg.length)]
+  dclient.channels.find("name", settings.welcome_msg_channel_name).send(settings.join_msg.replace("<name>", name).replace("<status>", user_status))
 })
 
 dclient.on("message", msg => {
