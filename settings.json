@@ -62,6 +62,6 @@
 
     "operator_api_url": "https://api.r6stats.com/api/v1/players/<name>/operators?platform=uplay",
 
-    "date_format": "YYYY-MM-DD hh:mm:ss"
+    "date_format": "YYYY-MM-DD HH:mm:ss"
   }
 ]

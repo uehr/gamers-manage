@@ -113,7 +113,7 @@ dclient.on("message", msg => {
       const add_vote_cmd = msg.content.match(/^!vote add (.+)/)
       const vote_cmd = msg.content.match(/^!vote (.+) (.+)$/)
       const finish_vote_cmd = msg.content.match(/^!vote finish (.+)$/)
-      const remind_cmd = msg.content.match(/^!remind (.+) (\d{1,4})$/)
+      const remind_cmd = msg.content.match(/^!remind (.+) (.+)$/)
 
       if (r6s_operator_data_find_cmd) {
         require("./lib/r6sop")(msg, r6s_operator_data_find_cmd)
