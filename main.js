@@ -26,7 +26,6 @@ const tclient = new twitter({
   access_token_key: process.env.twitter_access_token_key,
   access_token_secret: process.env.twitter_access_token_secret
 })
-moment.locale("ja")
 
 //app running check for heroku
 http.createServer((req, res) => {
@@ -68,7 +67,7 @@ new cron({
 }).start()
 
 dclient.on("ready", () => {
-  console.log("started: " + moment().tz('Asia/Tokyo').format(settings.date_format))
+  console.log("started: " + moment().format(settings.date_format))
 })
 
 dclient.on("guildMemberAdd", member => {
@@ -82,7 +81,7 @@ dclient.on("message", msg => {
       require("./lib/help")(msg)
       break;
     case "!now":
-      msg.channel.send(moment().tz('Asia/Tokyo').format(settings.date_format))
+      msg.channel.send(moment().format(settings.date_format))
       break;
     case "!info":
       msg.channel.send(settings.info_msg)
