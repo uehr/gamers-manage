@@ -15,11 +15,11 @@ const settings = require("./settings.json")[0]
 const moment = require("moment")
 const twitter = require("twitter")
 const sleep = require("sleep-promise")
-const bgm_path = "./bgm/<number>.mp3"
 const cron = require("cron").CronJob
 const http = require("http")
 const vote = require("./lib/vote")
 const remind = require("./lib/remind")
+const r6s = require("./lib/r6s")
 const tclient = new twitter({
   consumer_key: process.env.twitter_consumer_key,
   consumer_secret: process.env.twitter_consumer_secret,
@@ -116,20 +116,26 @@ dclient.on("message", msg => {
       const remind_cmd = msg.content.match(/^!remind (.+) (.+)$/)
 
       if (r6s_operator_data_find_cmd) {
-        require("./lib/r6sop")(msg, r6s_operator_data_find_cmd)
+        const args = msg.content.replace("!r6s op ", "").split(" ")
+        r6s.operator(msg, args)
       } else if (r6s_player_data_find_cmd) {
-        require("./lib/r6spl")(msg, r6s_player_data_find_cmd)
+        const args = msg.content.replace("!r6s ", "").split(" ")
+        r6s.player(msg, args)
       } else if (roulette_cmd) {
-        const values = msg.content.replace("!roulette_cmd ", "").split(" ")
+        const values = msg.content.replace("!roulette ", "").split(" ")
         msg.channel.send(values[Math.floor(Math.random() * values.length)])
       } else if (add_vote_cmd) {
-        vote.add(msg, add_vote_cmd)
+        const args = msg.content.replace("!vote add ", "").split(" ")
+        vote.add(msg, args)
       } else if (finish_vote_cmd) {
-        vote.finish(msg, finish_vote_cmd)
+        const args = msg.content.replace("!vote finish ", "").split(" ")
+        vote.finish(msg, args)
       } else if (vote_cmd) {
-        vote.vote(msg, vote_cmd)
+        const args = msg.content.replace("!vote ", "").split(" ")
+        vote.vote(msg, args)
       } else if (remind_cmd) {
-        remind.set(msg, remind_cmd)
+        const args = msg.content.replace("!remind ", "").split(" ")
+        remind.set(msg, args)
       }
   }
 })
