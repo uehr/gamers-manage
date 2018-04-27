@@ -58,6 +58,8 @@
 
     "admins_name": ["uehara", "くどう", "meshi", "KEITA_NOOB"],
 
+    "developer_id": "352438383081160706",
+
     "player_api_url": "https://api.r6stats.com/api/v1/players/<name>?platform=uplay",
 
     "operator_api_url": "https://api.r6stats.com/api/v1/players/<name>/operators?platform=uplay",

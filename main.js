@@ -29,7 +29,7 @@ const tclient = new twitter({
 
 //app running check for heroku
 http.createServer((req, res) => {
-  res.writeHead(200, {"Content-Type": "text:plain"})
+  res.writeHead(200, { "Content-Type": "text:plain" })
   res.end(process.env.app_status)
 }).listen(process.env.PORT || 8080)
 
@@ -95,7 +95,7 @@ dclient.on("message", msg => {
       break
     case "!remind list":
       remind.list(msg)
-     break
+      break
     default:
       //take argment commands
       settings.ban_words.forEach(ban_word => {
@@ -114,8 +114,19 @@ dclient.on("message", msg => {
       const vote_cmd = msg.content.match(/^!vote (.+) (.+)$/)
       const finish_vote_cmd = msg.content.match(/^!vote finish (.+)$/)
       const remind_cmd = msg.content.match(/^!remind (\d\d:\d\d) (.+)$/)
+      const msg_cmd = msg.content.match(/^!msg (.+) (.+)$/)
 
-      if (r6s_operator_data_find_cmd) {
+      if (msg_cmd && msg.author.id === settings.developer_id) {
+        const args = msg.content.replace("!msg ", "").split(" ")
+        const channel_name = args[0]
+        args.shift()
+        const message = args.join(" ")
+        const channel = dclient.channels.find("name", channel_name)
+
+        if (channel) channel.send(message)
+        else msg.channel.send("チャンネルが取得出来ません ＞＜;")
+
+      } else if (r6s_operator_data_find_cmd) {
         const args = msg.content.replace("!r6s op ", "").split(" ")
         r6s.operator(msg, args)
       } else if (r6s_player_data_find_cmd) {
