@@ -58,13 +58,15 @@ settings.twitter_targets.forEach((option, index) => {
   })
 })
 
-new cron({
-  cronTime: `0 0 ${settings.info_hour} * * ${settings.info_on_week}`,
-  onTick: () => {
-    dclient.channels.find("name", settings.info_msg_channel_name).send(settings.info_msg)
-  },
-  timeZone: "Asia/Tokyo"
-}).start()
+//定期info
+
+// new cron({
+//   cronTime: `0 0 ${settings.info_hour} * * ${settings.info_on_week}`,
+//   onTick: () => {
+//     dclient.channels.find("name", settings.info_msg_channel_name).send(settings.info_msg)
+//   },
+//   timeZone: "Asia/Tokyo"
+// }).start()
 
 dclient.on("ready", () => {
   console.log("started: " + moment().format(settings.date_format))
@@ -122,10 +124,8 @@ dclient.on("message", msg => {
         args.shift()
         const message = args.join(" ")
         const channel = dclient.channels.find("name", channel_name)
-
         if (channel) channel.send(message)
         else msg.channel.send("チャンネルが取得出来ません ＞＜;")
-
       } else if (r6s_operator_data_find_cmd) {
         const args = msg.content.replace("!r6s op ", "").split(" ")
         r6s.operator(msg, args)
