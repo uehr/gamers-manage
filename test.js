@@ -1,29 +1,16 @@
 const discord = require("discord.js")
 const dclient = new discord.Client()
-const settings = require("./settings.json")[0]
 const moment = require("moment")
-const dateFormat = "YYYY-MM-DD hh:mm:ss"
-const sleep = require("sleep-promise")
+const settings = require("./settings.json")[0]
+const settingUpdate = require("./lib/settingUpdate")
 
 dclient.on("ready", () => {
-  console.log("started: " + moment().format(dateFormat))
+  console.log("started")
   vc = dclient.channels.find("name", "General")
 })
 
 dclient.on("message", msg => {
-  const ctrl_cmd = msg.content.match(/^!msg (.+) (.+)$/)
-  if(ctrl_cmd && msg.author.id === settings.developer_id){
-    const args = msg.content.replace("!msg ", "").split(" ")
-    const channel_name = args[0]
-    args.shift()
-    const message = args.join(" ")
-    const channel = dclient.channels.find("name", channel_name)
-    if(channel) {
-      channel.send(message)
-    }else{
-      msg.channel.send("チャンネルが取得出来ません ＞＜;")
-    }
-  }
+  settingUpdate.update(msg, "info_msg", "ようそこ！")
 })
 
-dclient.login(process.env.discord_token)
+dclient.login("NDE4MjQ5MTY2NzY3MTI4NTg3.DbYkcQ.4ZulrblJrePOo-kcBep61TtA9NY")

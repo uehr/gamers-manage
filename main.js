@@ -11,7 +11,7 @@ const player_api_url = "https://api.r6stats.com/api/v1/players/<name>?platform=u
 const operator_api_url = "https://api.r6stats.com/api/v1/players/<name>/operators?platform=uplay"
 const discord = require("discord.js")
 const dclient = new discord.Client()
-const settings = require("./settings.json")[0]
+const settings = require("./settings.json")
 const moment = require("moment")
 const twitter = require("twitter")
 const sleep = require("sleep-promise")
@@ -20,6 +20,8 @@ const http = require("http")
 const vote = require("./lib/vote")
 const remind = require("./lib/remind")
 const r6s = require("./lib/r6s")
+const settingUpdate = require("./lib/settingUpdate")
+
 const tclient = new twitter({
   consumer_key: process.env.twitter_consumer_key,
   consumer_secret: process.env.twitter_consumer_secret,
@@ -57,16 +59,6 @@ settings.twitter_targets.forEach((option, index) => {
     console.log(error)
   })
 })
-
-//定期info
-
-// new cron({
-//   cronTime: `0 0 ${settings.info_hour} * * ${settings.info_on_week}`,
-//   onTick: () => {
-//     dclient.channels.find("name", settings.info_msg_channel_name).send(settings.info_msg)
-//   },
-//   timeZone: "Asia/Tokyo"
-// }).start()
 
 dclient.on("ready", () => {
   console.log("started: " + moment().format(settings.date_format))
