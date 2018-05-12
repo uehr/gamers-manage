@@ -93,7 +93,7 @@ dclient.on("message", msg => {
     case "!settings":
       for (key in settings) {
         if(typeof(settings[key]) == "string"){
-          console.log(key)
+          msg.channel.send(key)
         }
       }
     default:
