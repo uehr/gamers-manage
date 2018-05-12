@@ -109,6 +109,7 @@ dclient.on("message", msg => {
       const finish_vote_cmd = msg.content.match(/^!vote finish (.+)$/)
       const remind_cmd = msg.content.match(/^!remind (\d\d:\d\d) (.+)$/)
       const msg_cmd = msg.content.match(/^!msg (.+) (.+)$/)
+      const settings_update_cmd = msg.content.match(/^!update (.+) (.+)$/)
 
       if (msg_cmd && msg.author.id === settings.developer_id) {
         const args = msg.content.replace("!msg ", "").split(" ")
@@ -139,6 +140,9 @@ dclient.on("message", msg => {
       } else if (remind_cmd) {
         const args = msg.content.replace("!remind ", "").split(" ")
         remind.set(msg, args)
+      } else if (msg.channel.name == "admin" && settings_update_cmd) {
+        const args = msg.content.replace("!update ", "").split(" ")
+        settingUpdate.update(msg, args[0], args[1])
       }
   }
 })
