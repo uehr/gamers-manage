@@ -91,7 +91,7 @@ dclient.on("message", msg => {
       remind.list(msg)
       break
     case "!settings":
-      let message
+      let message = ""
       for (key in settings)
         if(typeof(settings[key]) == "string")
           message += key + "\n"
