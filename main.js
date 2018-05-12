@@ -94,7 +94,7 @@ dclient.on("message", msg => {
       let message = ""
       for (key in settings)
         if(typeof(settings[key]) == "string")
-          message += key + "\n"
+          message += `・${key}\n`
       msg.channel.send(message)
     default:
       //take argment commands
