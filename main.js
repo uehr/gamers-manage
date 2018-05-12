@@ -91,9 +91,11 @@ dclient.on("message", msg => {
       remind.list(msg)
       break
     case "!settings":
-      settings.forEach(key => {
-        console.log(key)
-      })
+      for (key in settings) {
+        if(typeof(settings[key]) == "string"){
+          console.log(key)
+        }
+      }
     default:
       //take argment commands
       settings.ban_words.forEach(ban_word => {
@@ -148,7 +150,7 @@ dclient.on("message", msg => {
       } else if (msg.channel.name == "admin" && settings_update_cmd) {
         const args = msg.content.replace("!update ", "").split(" ")
         settingUpdate.update(msg, args[0], args[1])
-      } else if(msg.channel.name == "general" && settings_get_cmd) {
+      } else if(msg.channel.name == "admin" && settings_get_cmd) {
         const args = msg.content.replace("!get ", "").split(" ")
         let message = "キーが見つかりません"
         if(args[0] in settings)
