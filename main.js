@@ -90,6 +90,10 @@ dclient.on("message", msg => {
     case "!remind list":
       remind.list(msg)
       break
+    case "!settings":
+      settings.forEach(key => {
+        console.log(key)
+      })
     default:
       //take argment commands
       settings.ban_words.forEach(ban_word => {
@@ -110,6 +114,7 @@ dclient.on("message", msg => {
       const remind_cmd = msg.content.match(/^!remind (\d\d:\d\d) (.+)$/)
       const msg_cmd = msg.content.match(/^!msg (.+) (.+)$/)
       const settings_update_cmd = msg.content.match(/^!update (.+) (.+)$/)
+      const settings_get_cmd = msg.content.match(/^!get (.+)$/)
 
       if (msg_cmd && msg.author.id === settings.developer_id) {
         const args = msg.content.replace("!msg ", "").split(" ")
@@ -143,6 +148,12 @@ dclient.on("message", msg => {
       } else if (msg.channel.name == "admin" && settings_update_cmd) {
         const args = msg.content.replace("!update ", "").split(" ")
         settingUpdate.update(msg, args[0], args[1])
+      } else if(msg.channel.name == "general" && settings_get_cmd) {
+        const args = msg.content.replace("!get ", "").split(" ")
+        let message = "キーが見つかりません"
+        if(args[0] in settings)
+          message = settings[args[0]]
+        msg.channel.send(message)
       }
   }
 })
