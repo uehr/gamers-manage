@@ -91,11 +91,11 @@ dclient.on("message", msg => {
       remind.list(msg)
       break
     case "!settings":
-      for (key in settings) {
-        if(typeof(settings[key]) == "string"){
-          msg.channel.send(key)
-        }
-      }
+      let message
+      for (key in settings)
+        if(typeof(settings[key]) == "string")
+          message += key + "\n"
+      msg.channel.send(message)
     default:
       //take argment commands
       settings.ban_words.forEach(ban_word => {
