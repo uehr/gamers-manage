@@ -1,0 +1,31 @@
+{
+  "name": "nnn-gamers-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "cron": "^1.3.0",
+    "discord": "^0.8.2",
+    "discord.js": "^11.3.2",
+    "moment": "^2.21.0",
+    "opusscript": "0.0.6",
+    "request": "^2.85.0",
+    "sleep-promise": "^2.0.0",
+    "twitter": "^1.7.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uehr/nnn-gamers-manage.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uehr/nnn-gamers-manage/issues"
+  },
+  "homepage": "https://github.com/uehr/nnn-gamers-manage#readme"
+}
