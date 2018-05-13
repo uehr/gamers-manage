@@ -115,8 +115,8 @@ dclient.on("message", msg => {
       const finish_vote_cmd = msg.content.match(/^!vote finish (.+)$/)
       const remind_cmd = msg.content.match(/^!remind (\d\d:\d\d) (.+)$/)
       const msg_cmd = msg.content.match(/^!msg (.+) (.+)$/)
+      const settings_get_cmd = msg.content.match(/^!get (.+)$/)
       // const settings_update_cmd = msg.content.match(/^!update (.+)\s(.+)/)
-      // const settings_get_cmd = msg.content.match(/^!get (.+)$/)
 
       if (msg_cmd && msg.author.id === settings.developer_id) {
         const args = msg.content.replace("!msg ", "").split(" ")
