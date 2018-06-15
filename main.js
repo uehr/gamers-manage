@@ -145,15 +145,6 @@ dclient.on("message", msg => {
       } else if (remind_cmd) {
         const args = msg.content.replace("!remind ", "").split(" ")
         remind.set(msg, args)
-<<<<<<< HEAD
-      } else if(msg.channel.name == "admin" && settings_get_cmd) {
-        const args = msg.content.replace("!get ", "").split(" ")
-        let message = "キーが見つかりません"
-        if(args[0] in settings)
-          message = settings[args[0]]
-        msg.channel.send(message)
-=======
->>>>>>> ebad66b16c43950eda9280b3f7204646bc04b584
       }
   }
 })
