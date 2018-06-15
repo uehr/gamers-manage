@@ -22,12 +22,12 @@ const remind = require("./lib/remind")
 const r6s = require("./lib/r6s")
 const settingUpdate = require("./lib/settingUpdate")
 
-const tclient = new twitter({
-  consumer_key: process.env.twitter_consumer_key,
-  consumer_secret: process.env.twitter_consumer_secret,
-  access_token_key: process.env.twitter_access_token_key,
-  access_token_secret: process.env.twitter_access_token_secret
-})
+// const tclient = new twitter({
+//   consumer_key: process.env.twitter_consumer_key,
+//   consumer_secret: process.env.twitter_consumer_secret,
+//   access_token_key: process.env.twitter_access_token_key,
+//   access_token_secret: process.env.twitter_access_token_secret
+// })
 
 //app running check for heroku
 http.createServer((req, res) => {
@@ -36,29 +36,29 @@ http.createServer((req, res) => {
 }).listen(process.env.PORT || 8080)
 
 //対象ユーザーのIDを取得
-console.log("twitter: ")
-settings.twitter_targets.forEach((option, index) => {
-  sleep((index + 1) * 60000).then(resolve => {
-    console.log(option)
-    tclient.get('statuses/user_timeline', { screen_name: option.user_name }, (error, tweets, response) => {
-      if (!error) {
-        const user_id = tweets[0].user.id_str
-        //取得できたIDを用いてストリームを生成
-        tclient.stream('statuses/filter', { follow: user_id }, stream => {
-          stream.on('data', tweet => {
-            if ((tweet.user.id_str === user_id) && !tweet.in_reply_to_user_id) {
-              if (tweet.user.screen_name === "hoge37" && tweet.text != "sync test") return
-              const tweet_url = `https://twitter.com/${option.user_name}/status/${tweet.id_str}`
-              dclient.channels.find("name", option.post_channel_name).send(tweet_url)
-            }
-          })
-        })
-      }
-    })
-  }).catch(error => {
-    console.log(error)
-  })
-})
+// console.log("twitter: ")
+// settings.twitter_targets.forEach((option, index) => {
+//   sleep((index + 1) * 60000).then(resolve => {
+//     console.log(option)
+//     tclient.get('statuses/user_timeline', { screen_name: option.user_name }, (error, tweets, response) => {
+//       if (!error) {
+//         const user_id = tweets[0].user.id_str
+//         //取得できたIDを用いてストリームを生成
+//         tclient.stream('statuses/filter', { follow: user_id }, stream => {
+//           stream.on('data', tweet => {
+//             if ((tweet.user.id_str === user_id) && !tweet.in_reply_to_user_id) {
+//               if (tweet.user.screen_name === "hoge37" && tweet.text != "sync test") return
+//               const tweet_url = `https://twitter.com/${option.user_name}/status/${tweet.id_str}`
+//               dclient.channels.find("name", option.post_channel_name).send(tweet_url)
+//             }
+//           })
+//         })
+//       }
+//     })
+//   }).catch(error => {
+//     console.log(error)
+//   })
+// })
 
 dclient.on("ready", () => {
   console.log("started: " + moment().format(settings.date_format))
@@ -147,12 +147,6 @@ dclient.on("message", msg => {
       } else if (remind_cmd) {
         const args = msg.content.replace("!remind ", "").split(" ")
         remind.set(msg, args)
-      // } else if (msg.channel.name == "admin" && settings_update_cmd) {
-      //   const args = msg.content.replace("!update ", "").split("\n")
-      //   const key = args[0]
-      //   args.shift()
-      //   const value = args.join("\n")
-      //   settingUpdate.update(msg, key, value)
       } else if(msg.channel.name == "admin" && settings_get_cmd) {
         const args = msg.content.replace("!get ", "").split(" ")
         let message = "キーが見つかりません"
