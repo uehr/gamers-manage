@@ -120,5 +120,5 @@ dclient.on("message", msg => {
   }
 })
 
-// dclient.login(process.env.discord_token)
+dclient.login(process.env.discord_token)
 // dclient.login(process.env.discord_token2)
