@@ -16,6 +16,7 @@ const http = require("http")
 const vote = require("./lib/vote")
 const remind = require("./lib/remind")
 const r6s = require("./lib/r6s")
+const memberRecruit = require("./lib/membersRecruit")
 
 //app running check for heroku
 http.createServer((req, res) => {
@@ -32,6 +33,8 @@ dclient.on("guildMemberAdd", member => {
   const user_status = settings.join_random_msg[Math.floor(Math.random() * settings.join_random_msg.length)]
   dclient.channels.find("name", settings.welcome_msg_channel_name).send(settings.join_msg.replace("<name>", name).replace("<status>", user_status))
 })
+
+memberRecruit.register(dclient)
 
 dclient.on("message", msg => {
   switch (msg.content) {
@@ -78,6 +81,7 @@ dclient.on("message", msg => {
       const finish_vote_cmd = msg.content.match(/^!vote finish (.+)$/)
       const remind_cmd = msg.content.match(/^!remind (\d\d:\d\d) (.+)$/)
       const msg_cmd = msg.content.match(/^!msg (.+) (.+)$/)
+      const recruit_cmd = msg.content.match(/!@([-+\d]+)/)
 
       if (msg_cmd && msg.author.id === settings.developer_id) {
         const args = msg.content.replace("!msg ", "").split(" ")
@@ -93,6 +97,10 @@ dclient.on("message", msg => {
       } else if (r6s_player_data_find_cmd) {
         const args = msg.content.replace("!r6s ", "").split(" ")
         r6s.player(msg, args)
+      } else if (recruit_cmd){
+        const recruit_count = parseInt(recruit_cmd[1])
+        if(recruit_count > 0)
+          memberRecruit.new(msg, recruit_count)
       } else if (roulette_cmd) {
         const values = msg.content.replace("!roulette ", "").split(" ")
         msg.channel.send(values[Math.floor(Math.random() * values.length)])
@@ -112,4 +120,5 @@ dclient.on("message", msg => {
   }
 })
 
-dclient.login(process.env.discord_token)
+// dclient.login(process.env.discord_token)
+// dclient.login(process.env.discord_token2)
