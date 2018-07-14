@@ -7,58 +7,21 @@
  * discord_token
 */
 
-const player_api_url = "https://api.r6stats.com/api/v1/players/<name>?platform=uplay"
-const operator_api_url = "https://api.r6stats.com/api/v1/players/<name>/operators?platform=uplay"
 const discord = require("discord.js")
 const dclient = new discord.Client()
 const settings = require("./settings.json")
 const moment = require("moment")
-const twitter = require("twitter")
-const sleep = require("sleep-promise")
 const cron = require("cron").CronJob
 const http = require("http")
 const vote = require("./lib/vote")
 const remind = require("./lib/remind")
 const r6s = require("./lib/r6s")
-const settingUpdate = require("./lib/settingUpdate")
-
-// const tclient = new twitter({
-//   consumer_key: process.env.twitter_consumer_key,
-//   consumer_secret: process.env.twitter_consumer_secret,
-//   access_token_key: process.env.twitter_access_token_key,
-//   access_token_secret: process.env.twitter_access_token_secret
-// })
 
 //app running check for heroku
 http.createServer((req, res) => {
   res.writeHead(200, { "Content-Type": "text:plain" })
   res.end(process.env.app_status)
 }).listen(process.env.PORT || 8080)
-
-//対象ユーザーのIDを取得
-// console.log("twitter: ")
-// settings.twitter_targets.forEach((option, index) => {
-//   sleep((index + 1) * 60000).then(resolve => {
-//     console.log(option)
-//     tclient.get('statuses/user_timeline', { screen_name: option.user_name }, (error, tweets, response) => {
-//       if (!error) {
-//         const user_id = tweets[0].user.id_str
-//         //取得できたIDを用いてストリームを生成
-//         tclient.stream('statuses/filter', { follow: user_id }, stream => {
-//           stream.on('data', tweet => {
-//             if ((tweet.user.id_str === user_id) && !tweet.in_reply_to_user_id) {
-//               if (tweet.user.screen_name === "hoge37" && tweet.text != "sync test") return
-//               const tweet_url = `https://twitter.com/${option.user_name}/status/${tweet.id_str}`
-//               dclient.channels.find("name", option.post_channel_name).send(tweet_url)
-//             }
-//           })
-//         })
-//       }
-//     })
-//   }).catch(error => {
-//     console.log(error)
-//   })
-// })
 
 dclient.on("ready", () => {
   console.log("started: " + moment().format(settings.date_format))

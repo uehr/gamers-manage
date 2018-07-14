@@ -90,7 +90,7 @@
   "server_help": "ここはN高生ゲーマーの交流場所です！\n在学生はもちろん、OBの方も是非ご参加下さい！",
   "ban_word_log_msg": "ユーザーネーム: <name>\nユーザーID: <id>\n内容: <content>\nチャンネル: #<channel>\n時刻: <date>",
   "r6s_battle_record_msg": "勝率: <wlr>\nKD: <kd>\nプレイ時間: <playtime>時間",
-  "r6s_player_msg": "レベル: <level>\n経験値: <xp>\nヘッドショット: <headshots>\nアシスト: <assists>",
+  "r6s_player_msg": "レベル: <level>\n着弾率: <hitrate>\nヘッドショット率: <headrate>",
   "r6s_operator_msg": "勝率: <wlr>\nKD: <kd>\nピック回数: <played>\nプレイ時間: <playtime>時間",
   "views_count": 3,
   "invalid_format": "不正なコマンド形式です。",
