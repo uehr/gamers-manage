@@ -94,7 +94,8 @@
   "r6s_operator_msg": "勝率: <wlr>\nKD: <kd>\nピック回数: <played>\nプレイ時間: <playtime>時間",
   "views_count": 3,
   "invalid_format": "不正なコマンド形式です。",
-  "recruit_msg": "@<count> 募集中です ＞＜;[<initial>]",
+  "recruit_msg": "**[募集] あと <count>人 !**",
+  "recruit_user_msg": "`[<username>] <msg>`",
   "join_reaction": "👌",
   "ban_words": [
     "死ね",
